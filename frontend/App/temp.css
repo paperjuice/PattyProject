@@ -1,0 +1,27 @@
+.roomContainer {
+  position: relative;
+  overflow-y: hidden;
+  margin-top: 5%;
+  white-space: nowrap;
+  top: 0px;
+  min-height: 500px;
+}
+
+.roomContainer .room {
+  list-style-image: url('https://www.w3schools.com/howto/img_fjords.jpg');
+  width : 10pc;
+  display : inline-block;
+  margin-right: 30px;
+}
+
+.roomContainer .room .text{
+  position: relative;
+  bottom: -100px;
+  text-align: center;
+}
+
+.roomContainer .room .doorImage {
+  zoom: 1.2;
+  margin: auto;
+  margin-left: -5.5pc;
+}

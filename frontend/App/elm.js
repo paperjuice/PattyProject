@@ -8260,20 +8260,9 @@ var _elm_lang$html$Html_Events$Options = F2(
 		return {stopPropagation: a, preventDefault: b};
 	});
 
-var _user$project$Main$update = F2(
-	function (msg, model) {
-		var _p0 = msg;
-		if (_p0.ctor === 'Activate') {
-			return _elm_lang$core$Native_Utils.update(
-				model,
-				{activeRoomId: _p0._0});
-		} else {
-			return model;
-		}
-	});
 var _user$project$Main$getDoorOnStatus = function (state) {
-	var _p1 = state;
-	switch (_p1.ctor) {
+	var _p0 = state;
+	switch (_p0.ctor) {
 		case 'Busy':
 			return '/priv/doors/busy_1.svg';
 		case 'Dirty':
@@ -8322,41 +8311,44 @@ var _user$project$Main$renderFloorPanel = A2(
 			_1: {ctor: '[]'}
 		}
 	});
-var _user$project$Main$confirmPanel = function (room) {
-	var _p2 = room.state;
-	return A2(
-		_elm_lang$html$Html$div,
-		{
-			ctor: '::',
-			_0: _elm_lang$html$Html_Attributes$class('confirmPanel'),
-			_1: {ctor: '[]'}
-		},
-		{
-			ctor: '::',
-			_0: A2(
-				_elm_lang$html$Html$h1,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text(
-						A2(
-							_elm_lang$core$Basics_ops['++'],
-							'Incepe curatarea camerei ',
-							_elm_lang$core$Basics$toString(room.id))),
-					_1: {ctor: '[]'}
-				}),
-			_1: {
+var _user$project$Main$Room = F3(
+	function (a, b, c) {
+		return {id: a, state: b, active: c};
+	});
+var _user$project$Main$Model = F2(
+	function (a, b) {
+		return {rooms: a, activeRoomId: b};
+	});
+var _user$project$Main$Confirm = function (a) {
+	return {ctor: 'Confirm', _0: a};
+};
+var _user$project$Main$confirmPanelHtml = F2(
+	function (room, message) {
+		return A2(
+			_elm_lang$html$Html$div,
+			{
+				ctor: '::',
+				_0: _elm_lang$html$Html_Attributes$class('confirmPanel'),
+				_1: {ctor: '[]'}
+			},
+			{
 				ctor: '::',
 				_0: A2(
-					_elm_lang$html$Html$button,
+					_elm_lang$html$Html$h1,
+					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('Yes'),
-						_1: {ctor: '[]'}
-					},
-					{
-						ctor: '::',
-						_0: _elm_lang$html$Html$text('Da'),
+						_0: _elm_lang$html$Html$text(
+							A2(
+								_elm_lang$core$Basics_ops['++'],
+								message,
+								A2(
+									_elm_lang$core$Basics_ops['++'],
+									' ',
+									A2(
+										_elm_lang$core$Basics_ops['++'],
+										_elm_lang$core$Basics$toString(room.id),
+										'?')))),
 						_1: {ctor: '[]'}
 					}),
 				_1: {
@@ -8365,22 +8357,74 @@ var _user$project$Main$confirmPanel = function (room) {
 						_elm_lang$html$Html$button,
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('No'),
-							_1: {ctor: '[]'}
+							_0: _elm_lang$html$Html_Attributes$class('yes'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onClick(
+									_user$project$Main$Confirm(room.id)),
+								_1: {ctor: '[]'}
+							}
 						},
 						{
 							ctor: '::',
-							_0: _elm_lang$html$Html$text('Nu'),
+							_0: A2(
+								_elm_lang$html$Html$p,
+								{ctor: '[]'},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Da'),
+									_1: {ctor: '[]'}
+								}),
 							_1: {ctor: '[]'}
 						}),
-					_1: {ctor: '[]'}
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$button,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('no'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(
+										_user$project$Main$Confirm(0)),
+									_1: {ctor: '[]'}
+								}
+							},
+							{
+								ctor: '::',
+								_0: A2(
+									_elm_lang$html$Html$p,
+									{ctor: '[]'},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Nu'),
+										_1: {ctor: '[]'}
+									}),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
 				}
-			}
-		});
+			});
+	});
+var _user$project$Main$confirmPanel = function (room) {
+	var _p1 = room.state;
+	switch (_p1.ctor) {
+		case 'Dirty':
+			return A2(_user$project$Main$confirmPanelHtml, room, 'Incepe curatarea camerei');
+		case 'InProgress':
+			return A2(_user$project$Main$confirmPanelHtml, room, 'A fost efectuata curatarea camerei');
+		default:
+			return A2(
+				_elm_lang$html$Html$div,
+				{ctor: '[]'},
+				{ctor: '[]'});
+	}
 };
 var _user$project$Main$confirmRoom = function (model) {
-	var _p3 = model.activeRoomId;
-	if (_p3 === 0) {
+	var _p2 = model.activeRoomId;
+	if (_p2 === 0) {
 		return A2(
 			_elm_lang$html$Html$div,
 			{ctor: '[]'},
@@ -8393,28 +8437,16 @@ var _user$project$Main$confirmRoom = function (model) {
 					return _elm_lang$core$Native_Utils.eq(room.id, model.activeRoomId);
 				},
 				model.rooms));
-		var _p4 = my_room;
-		if (_p4.ctor === 'Nothing') {
+		var _p3 = my_room;
+		if (_p3.ctor === 'Nothing') {
 			return A2(
 				_elm_lang$html$Html$div,
 				{ctor: '[]'},
 				{ctor: '[]'});
 		} else {
-			return _user$project$Main$confirmPanel(_p4._0);
+			return _user$project$Main$confirmPanel(_p3._0);
 		}
 	}
-};
-var _user$project$Main$image_url = 'https://raw.githubusercontent.com/b00giZm/b00gizm.github.io/master/uploads/elm-logo.png';
-var _user$project$Main$Room = F3(
-	function (a, b, c) {
-		return {id: a, state: b, active: c};
-	});
-var _user$project$Main$Model = F2(
-	function (a, b) {
-		return {rooms: a, activeRoomId: b};
-	});
-var _user$project$Main$Confirm = function (a) {
-	return {ctor: 'Confirm', _0: a};
 };
 var _user$project$Main$Activate = function (a) {
 	return {ctor: 'Activate', _0: a};
@@ -8522,6 +8554,48 @@ var _user$project$Main$view = function (model) {
 };
 var _user$project$Main$Clean = {ctor: 'Clean'};
 var _user$project$Main$InProgress = {ctor: 'InProgress'};
+var _user$project$Main$calculateState = function (state) {
+	var _p4 = state;
+	switch (_p4.ctor) {
+		case 'Dirty':
+			return _user$project$Main$InProgress;
+		case 'InProgress':
+			return _user$project$Main$Clean;
+		default:
+			return state;
+	}
+};
+var _user$project$Main$update = F2(
+	function (msg, model) {
+		var _p5 = msg;
+		if (_p5.ctor === 'Activate') {
+			return _elm_lang$core$Native_Utils.update(
+				model,
+				{activeRoomId: _p5._0});
+		} else {
+			if (_p5._0 === 0) {
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{activeRoomId: 0});
+			} else {
+				return _elm_lang$core$Native_Utils.update(
+					model,
+					{
+						rooms: A2(
+							_elm_lang$core$List$map,
+							function (room) {
+								return _elm_lang$core$Native_Utils.update(
+									room,
+									{
+										state: _elm_lang$core$Native_Utils.eq(room.id, model.activeRoomId) ? _user$project$Main$calculateState(room.state) : room.state
+									});
+							},
+							model.rooms),
+						activeRoomId: 0
+					});
+			}
+		}
+	});
 var _user$project$Main$Dirty = {ctor: 'Dirty'};
 var _user$project$Main$Busy = {ctor: 'Busy'};
 var _user$project$Main$model = {
@@ -8537,49 +8611,49 @@ var _user$project$Main$model = {
 				_0: {id: 103, state: _user$project$Main$Clean, active: false},
 				_1: {
 					ctor: '::',
-					_0: {id: 103, state: _user$project$Main$InProgress, active: false},
+					_0: {id: 104, state: _user$project$Main$InProgress, active: false},
 					_1: {
 						ctor: '::',
-						_0: {id: 104, state: _user$project$Main$InProgress, active: false},
+						_0: {id: 105, state: _user$project$Main$InProgress, active: false},
 						_1: {
 							ctor: '::',
-							_0: {id: 105, state: _user$project$Main$Busy, active: false},
+							_0: {id: 106, state: _user$project$Main$Busy, active: false},
 							_1: {
 								ctor: '::',
-								_0: {id: 106, state: _user$project$Main$Busy, active: false},
+								_0: {id: 107, state: _user$project$Main$Busy, active: false},
 								_1: {
 									ctor: '::',
-									_0: {id: 107, state: _user$project$Main$Busy, active: false},
+									_0: {id: 108, state: _user$project$Main$Busy, active: false},
 									_1: {
 										ctor: '::',
-										_0: {id: 108, state: _user$project$Main$Busy, active: false},
+										_0: {id: 109, state: _user$project$Main$Busy, active: false},
 										_1: {
 											ctor: '::',
-											_0: {id: 109, state: _user$project$Main$Dirty, active: false},
+											_0: {id: 110, state: _user$project$Main$Dirty, active: false},
 											_1: {
 												ctor: '::',
-												_0: {id: 110, state: _user$project$Main$Busy, active: false},
+												_0: {id: 111, state: _user$project$Main$Busy, active: false},
 												_1: {
 													ctor: '::',
-													_0: {id: 111, state: _user$project$Main$Clean, active: false},
+													_0: {id: 112, state: _user$project$Main$Clean, active: false},
 													_1: {
 														ctor: '::',
-														_0: {id: 112, state: _user$project$Main$InProgress, active: false},
+														_0: {id: 113, state: _user$project$Main$InProgress, active: false},
 														_1: {
 															ctor: '::',
-															_0: {id: 113, state: _user$project$Main$InProgress, active: false},
+															_0: {id: 114, state: _user$project$Main$InProgress, active: false},
 															_1: {
 																ctor: '::',
-																_0: {id: 114, state: _user$project$Main$Busy, active: false},
+																_0: {id: 115, state: _user$project$Main$Busy, active: false},
 																_1: {
 																	ctor: '::',
-																	_0: {id: 115, state: _user$project$Main$Busy, active: false},
+																	_0: {id: 116, state: _user$project$Main$Busy, active: false},
 																	_1: {
 																		ctor: '::',
-																		_0: {id: 116, state: _user$project$Main$Busy, active: false},
+																		_0: {id: 117, state: _user$project$Main$Busy, active: false},
 																		_1: {
 																			ctor: '::',
-																			_0: {id: 117, state: _user$project$Main$Busy, active: false},
+																			_0: {id: 118, state: _user$project$Main$Busy, active: false},
 																			_1: {ctor: '[]'}
 																		}
 																	}

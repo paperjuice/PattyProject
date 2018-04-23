@@ -1,6 +1,7 @@
-import Html exposing (Html, h1, img, span, div, text, button)
+import Html exposing (Html, h1, img, span, div, text, p, button)
 import Html.Attributes exposing (class, src, style)
 import Html.Events exposing (onClick)
+import Debug exposing (log)
 
 main =
   Html.beginnerProgram
@@ -8,9 +9,6 @@ main =
   , view = view
   , update = update
   }
-
-image_url =
-  "https://raw.githubusercontent.com/b00giZm/b00gizm.github.io/master/uploads/elm-logo.png"
 
 -- MESSAGE --
 
@@ -56,18 +54,13 @@ model =
       , active = False
       }
       ,
-      { id = 103
-      , state = InProgress
-      , active = False
-      }
-      ,
       { id = 104
       , state = InProgress
       , active = False
       }
       ,
       { id = 105
-      , state = Busy
+      , state = InProgress
       , active = False
       }
       ,
@@ -87,22 +80,22 @@ model =
       }
       ,
       { id = 109
-      , state = Dirty
-      , active = False
-      }
-      ,
-      { id = 110
       , state = Busy
       , active = False
       }
       ,
+      { id = 110
+      , state = Dirty
+      , active = False
+      }
+      ,
       { id = 111
-      , state = Clean
+      , state = Busy
       , active = False
       }
       ,
       { id = 112
-      , state = InProgress
+      , state = Clean
       , active = False
       }
       ,
@@ -112,7 +105,7 @@ model =
       }
       ,
       { id = 114
-      , state = Busy
+      , state = InProgress
       , active = False
       }
       ,
@@ -127,6 +120,11 @@ model =
       }
       ,
       { id = 117
+      , state = Busy
+      , active = False
+      }
+      ,
+      { id = 118
       , state = Busy
       , active = False
       }
@@ -146,7 +144,7 @@ view model =
     , div[] [ text(toString model.activeRoomId)]
     ]
 
-confirmRoom : Model -> Html msg
+confirmRoom : Model -> Html Msg
 confirmRoom model =
   case model.activeRoomId of
     0      -> div[][]
@@ -163,19 +161,25 @@ confirmRoom model =
             Just room -> confirmPanel room
 
 
-confirmPanel : Room -> Html msg
+confirmPanel : Room -> Html Msg
 confirmPanel room =
   case room.state of
-    _ ->
-      div [ class "confirmPanel"]
-        [ h1 [] [ text ("Incepe curatarea camerei " ++ (toString room.id)) ]
-        , button [ class "Yes" ] [ text "Da" ]
-        , button [ class "No" ] [ text "Nu" ]
-        ]
+    Dirty ->
+      confirmPanelHtml room "Incepe curatarea camerei"
 
-    --  _ ->
-    --    div [] []
+    InProgress ->
+      confirmPanelHtml room "A fost efectuata curatarea camerei"
+    _ -> div [] []
 
+confirmPanelHtml : Room -> String -> Html Msg
+confirmPanelHtml room message =
+  div [ class "confirmPanel"]
+    [ h1 [] [ text (message ++ " " ++ (toString room.id) ++ "?") ]
+    , button [ class "yes", onClick (Confirm room.id) ]
+      [ p [] [ text "Da"] ]
+    , button [ class "no" , onClick (Confirm 0) ]
+      [ p [] [ text "Nu"] ]
+    ]
 
 renderFloorPanel =
   div [ class "floorPanel" ]
@@ -214,6 +218,27 @@ update msg model =
     Activate roomId->
       { model | activeRoomId = roomId }
 
+    Confirm 0 ->
+      { model | activeRoomId = 0 }
+
     Confirm roomId ->
-      model
+      { model
+        | rooms =
+          List.map(\room ->
+            {room | state =
+              if room.id == model.activeRoomId then
+                (calculateState room.state)
+              else
+                room.state
+            }) model.rooms
+        , activeRoomId = 0
+      }
+
+
+calculateState : State -> State
+calculateState state =
+  case state of
+    Dirty -> InProgress
+    InProgress -> Clean
+    _ -> state
 

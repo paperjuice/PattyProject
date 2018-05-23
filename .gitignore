@@ -6,3 +6,5 @@ repl-temp-*
 #ignore vim temp file
 *.swp
 
+#Mac destop file
+.DS_Store

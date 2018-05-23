@@ -6,5 +6,8 @@ repl-temp-*
 #ignore vim temp file
 *.swp
 
-#Mac destop file
+#Mac desktop file
 .DS_Store
+
+#Ignore mnesia directory
+Mnesia.*

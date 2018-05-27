@@ -1,6 +1,9 @@
+import Routing
+import Home
 import Html exposing (div, text, Html)
+
 import Navigation exposing (Location)
-import UrlParser exposing (Parser, oneOf, map, (</>),s ,top, parseHash, string)
+
 
 -- MAIN --
 main =
@@ -11,70 +14,38 @@ main =
   , subscriptions = subscriptions
   }
 
--- TYPES --
-type Route
-  = Home
-  | Login
-  | Register
-  | Cleaner
-  | Reception
-  | Admin
-  | AdminRoom String
-  | RouteNotFound
-
+-- MSG --
 type Msg
   = Route Navigation.Location
 
-type alias Model =
-  { route : Route
-  }
 
 -- INIT --
-init : Location -> (Model, Cmd msg)
+init : Location -> (Routing.Model, Cmd msg)
 init location =
-  update (Route location) (Model Home)
-
-
--- PARSE ROUTE --
-matcher : Parser (Route -> a) a
-matcher =
-  oneOf
-  [ map Home top
-  , map Login (s "login")
-  , map Register (s "register")
-  , map Cleaner (s "cleaner")
-  , map Reception (s "reception")
-  , map Admin (s "admin")
-  , map AdminRoom (s "admin" </> string)
-  ]
-
-parseLocation : Location -> Route
-parseLocation location =
-  case (parseHash matcher location) of
-    Just route -> route
-    Nothing    -> RouteNotFound
-
-
--- VIEW --
-view : Model -> Html msg
-view model =
-  case model.route of
-    Home -> div [] [ text "Home" ]
-    _    -> div [] [ text "Else" ]
+  update (Route location) (Routing.Model Routing.Home)
 
 
 -- UPDATE --
-update : Msg -> Model -> (Model, Cmd msg)
+update : Msg -> Routing.Model -> (Routing.Model, Cmd msg)
 update msg model =
   case msg of
     Route location ->
       let
-          route = parseLocation location
+          route = Routing.parseLocation location
             |> Debug.log "location"
       in
           ({ model | route = route }, Cmd.none)
 
+
+-- VIEW --
+view : Routing.Model -> Html msg
+view model =
+  case model.route of
+    Routing.Home -> div [] [ text "Home" ]
+    _    -> div [] [ text "Else" ]
+
+
 -- SUBSCRIPTIONS --
-subscriptions : Model -> Sub msg
+subscriptions : Routing.Model -> Sub msg
 subscriptions model =
   Sub.none

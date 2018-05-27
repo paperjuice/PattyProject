@@ -9876,8 +9876,7 @@ var _evancz$url_parser$UrlParser$intParam = function (name) {
 	return A2(_evancz$url_parser$UrlParser$customParam, name, _evancz$url_parser$UrlParser$intParamHelp);
 };
 
-var _user$project$Home$Model = {};
-var _user$project$Home$Hello = {ctor: 'Hello'};
+var _user$project$Home$hotel_svg = 'https://cdn3.iconfinder.com/data/icons/buildings-places/512/Hotels_B-512.png';
 var _user$project$Home$view = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
@@ -9896,28 +9895,35 @@ var _user$project$Home$view = function (model) {
 				ctor: '::',
 				_0: A2(
 					_elm_lang$html$Html$div,
+					{ctor: '[]'},
 					{
 						ctor: '::',
-						_0: _elm_lang$html$Html_Attributes$class('icon'),
+						_0: A2(
+							_elm_lang$html$Html$img,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('icon'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$src(_user$project$Home$hotel_svg),
+									_1: {ctor: '[]'}
+								}
+							},
+							{ctor: '[]'}),
 						_1: {ctor: '[]'}
-					},
-					{ctor: '[]'}),
+					}),
 				_1: {
 					ctor: '::',
 					_0: A2(
 						_elm_lang$html$Html$div,
-						{
-							ctor: '::',
-							_0: _elm_lang$html$Html_Attributes$class('login'),
-							_1: {ctor: '[]'}
-						},
+						{ctor: '[]'},
 						{
 							ctor: '::',
 							_0: A2(
 								_elm_lang$html$Html$button,
 								{
 									ctor: '::',
-									_0: _elm_lang$html$Html_Events$onClick(_user$project$Home$Hello),
+									_0: _elm_lang$html$Html_Attributes$class('login'),
 									_1: {ctor: '[]'}
 								},
 								{
@@ -9931,18 +9937,31 @@ var _user$project$Home$view = function (model) {
 						ctor: '::',
 						_0: A2(
 							_elm_lang$html$Html$div,
+							{ctor: '[]'},
 							{
 								ctor: '::',
-								_0: _elm_lang$html$Html_Attributes$class('register'),
+								_0: A2(
+									_elm_lang$html$Html$button,
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$class('register'),
+										_1: {ctor: '[]'}
+									},
+									{
+										ctor: '::',
+										_0: _elm_lang$html$Html$text('Register'),
+										_1: {ctor: '[]'}
+									}),
 								_1: {ctor: '[]'}
-							},
-							{ctor: '[]'}),
+							}),
 						_1: {ctor: '[]'}
 					}
 				}
 			}
 		});
 };
+var _user$project$Home$Model = {};
+var _user$project$Home$Hello = {ctor: 'Hello'};
 
 var _user$project$Routing$Model = function (a) {
 	return {route: a};
@@ -10023,14 +10042,7 @@ var _user$project$Main$subscriptions = function (model) {
 var _user$project$Main$view = function (model) {
 	var _p0 = model.route;
 	if (_p0.ctor === 'Home') {
-		return A2(
-			_elm_lang$html$Html$div,
-			{ctor: '[]'},
-			{
-				ctor: '::',
-				_0: _elm_lang$html$Html$text('Home'),
-				_1: {ctor: '[]'}
-			});
+		return _user$project$Home$view(_user$project$Home$Model);
 	} else {
 		return A2(
 			_elm_lang$html$Html$div,

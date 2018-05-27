@@ -31,7 +31,6 @@ type Msg
   | ReceptionView
 
 -- MODEL --
-
 type State
   = Busy
   | Dirty

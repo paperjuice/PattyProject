@@ -41,7 +41,9 @@ update msg model =
 view : Routing.Model -> Html msg
 view model =
   case model.route of
-    Routing.Home -> div [] [ text "Home" ]
+    Routing.Home -> 
+      Home.view Home.Model
+
     _    -> div [] [ text "Else" ]
 
 

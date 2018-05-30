@@ -3,12 +3,7 @@
     "summary": "helpful summary of your project, less than 80 characters",
     "repository": "https://github.com/user/project.git",
     "license": "BSD3",
-    "source-directories": [
-        "authentication/",
-        "admin/",
-        "routes/",
-        "home/"
-    ],
+    "source-directories": [],
     "exposed-modules": [
     ],
     "dependencies": {

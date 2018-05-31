@@ -1,8 +1,7 @@
-import Routing
-import Home
 import Html exposing (div, text, Html)
 
 import Navigation exposing (Location)
+import UrlParser exposing (Parser, oneOf, (</>), map, string, s, top, parseHash, int)
 
 
 -- MAIN --
@@ -14,27 +13,76 @@ main =
   , subscriptions = (\_-> Sub.none)
   }
 
+-- MODEL --
+type alias Model =
+  { route : Route
+    }
+
+-- ROUTING --
+type Route
+  = Home
+  | Login
+  | Register
+  | Admin
+  | AdminRoom String
+  | Cleaner Int
+  | Reception
+  | RouteNotFound
+
+matchLocation : Location -> Route
+matchLocation location =
+  case (parseHash matcher location) of
+    Just route -> route
+    Nothing    -> RouteNotFound
+
+
+matcher : Parser ( Route -> a ) a
+matcher =
+  oneOf
+  [ map Home top
+  , map Login (s "login")
+  , map Register (s "register")
+  , map Admin (s "admin")
+  , map AdminRoom (s "admin" </> string)
+  , map Cleaner (s "cleaner" </> int)
+  , map Reception (s "reception")
+  ]
+
 -- MSG --
 type Msg
   = Route Navigation.Location
 
 
 -- INIT --
-init : Location -> (Routing.Model, Cmd msg)
+init : Location -> (Model, Cmd msg)
 init location =
-  update (Route location) (Routing.Model Routing.Home)
+  update (Route location) (Model Home)
 
 
 -- UPDATE --
-update : Msg -> Routing.Model -> (Routing.Model, Cmd msg)
+update : Msg -> Model -> (Model, Cmd msg)
 update msg model =
   case msg of
+    Route location ->
+      let
+          newRoute = matchLocation location
+      in
+          ({model | route = newRoute}, Cmd.none )
 
 
 -- VIEW --
-view : Routing.Model -> Html msg
+view : Model -> Html msg
 view model =
   case model.route of
+    Home                 -> div [] [ text "Home" ]
+    Register             -> div [] [ text "Register" ]
+    Login                -> div [] [ text "Login" ]
+    Admin                -> div [] [ text "Here you can add new workers" ]
+    AdminRoom roomNumber -> div [] [ text "Here you see the room status, probabil ca ar trebui sa poti sa vezi toate camerele, donno" ]
+    Cleaner floorNumber  -> div [] [ text "Cleaner view based on floor" ]
+    Reception            -> div [] [ text "Reception where it can see all the floors/rooms" ]
+    RouteNotFound        -> div [] [ text "The path doesn't exist :(" ]
+
 
 -- SUBSCRIPTIONS --
 --subscriptions : Routing.Model -> Sub msg

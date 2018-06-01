@@ -1,4 +1,5 @@
-import Html exposing (div, text, Html)
+import Html exposing (div, text, Html, button)
+import Html.Attributes exposing (class)
 
 import Navigation exposing (Location)
 import UrlParser exposing (Parser, oneOf, (</>), map, string, s, top, parseHash, int)
@@ -74,7 +75,7 @@ update msg model =
 view : Model -> Html msg
 view model =
   case model.route of
-    Home                 -> div [] [ text "Home" ]
+    Home                 -> homeView model
     Register             -> div [] [ text "Register" ]
     Login                -> div [] [ text "Login" ]
     Admin                -> div [] [ text "Here you can add new workers" ]
@@ -82,6 +83,20 @@ view model =
     Cleaner floorNumber  -> div [] [ text "Cleaner view based on floor" ]
     Reception            -> div [] [ text "Reception where it can see all the floors/rooms" ]
     RouteNotFound        -> div [] [ text "The path doesn't exist :(" ]
+
+
+----------------------
+--- VIEW HOME --------
+----------------------
+homeView : Model -> Html msg
+homeView model =
+  div [ ]
+      [ div [ class "icon" ] [ text "Here insert icon" ]
+      , div [ class "buttons" ]
+            [ button [ class "login" onClick Login ] [ text "Login" ]
+            , button [ class "register" onClick Register ] [ text "Register" ]
+            ]
+      ]
 
 
 -- SUBSCRIPTIONS --

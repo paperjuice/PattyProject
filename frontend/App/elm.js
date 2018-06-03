@@ -8747,6 +8747,121 @@ var _elm_lang$html$Html_Attributes$classList = function (list) {
 };
 var _elm_lang$html$Html_Attributes$style = _elm_lang$virtual_dom$VirtualDom$style;
 
+var _elm_lang$html$Html_Events$keyCode = A2(_elm_lang$core$Json_Decode$field, 'keyCode', _elm_lang$core$Json_Decode$int);
+var _elm_lang$html$Html_Events$targetChecked = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'checked',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$bool);
+var _elm_lang$html$Html_Events$targetValue = A2(
+	_elm_lang$core$Json_Decode$at,
+	{
+		ctor: '::',
+		_0: 'target',
+		_1: {
+			ctor: '::',
+			_0: 'value',
+			_1: {ctor: '[]'}
+		}
+	},
+	_elm_lang$core$Json_Decode$string);
+var _elm_lang$html$Html_Events$defaultOptions = _elm_lang$virtual_dom$VirtualDom$defaultOptions;
+var _elm_lang$html$Html_Events$onWithOptions = _elm_lang$virtual_dom$VirtualDom$onWithOptions;
+var _elm_lang$html$Html_Events$on = _elm_lang$virtual_dom$VirtualDom$on;
+var _elm_lang$html$Html_Events$onFocus = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'focus',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onBlur = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'blur',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onSubmitOptions = _elm_lang$core$Native_Utils.update(
+	_elm_lang$html$Html_Events$defaultOptions,
+	{preventDefault: true});
+var _elm_lang$html$Html_Events$onSubmit = function (msg) {
+	return A3(
+		_elm_lang$html$Html_Events$onWithOptions,
+		'submit',
+		_elm_lang$html$Html_Events$onSubmitOptions,
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onCheck = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'change',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetChecked));
+};
+var _elm_lang$html$Html_Events$onInput = function (tagger) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'input',
+		A2(_elm_lang$core$Json_Decode$map, tagger, _elm_lang$html$Html_Events$targetValue));
+};
+var _elm_lang$html$Html_Events$onMouseOut = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseout',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseOver = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseover',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseLeave = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseleave',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseEnter = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseenter',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseUp = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mouseup',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onMouseDown = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'mousedown',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onDoubleClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'dblclick',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$onClick = function (msg) {
+	return A2(
+		_elm_lang$html$Html_Events$on,
+		'click',
+		_elm_lang$core$Json_Decode$succeed(msg));
+};
+var _elm_lang$html$Html_Events$Options = F2(
+	function (a, b) {
+		return {stopPropagation: a, preventDefault: b};
+	});
+
 var _elm_lang$http$Native_Http = function() {
 
 
@@ -9761,7 +9876,239 @@ var _evancz$url_parser$UrlParser$intParam = function (name) {
 	return A2(_evancz$url_parser$UrlParser$customParam, name, _evancz$url_parser$UrlParser$intParamHelp);
 };
 
-var _user$project$Main$homeView = function (model) {
+var _user$project$Main$viewLogin = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('login'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$input,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('name'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$placeholder('Name'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$type_('text'),
+							_1: {ctor: '[]'}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$input,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('password'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$placeholder('Password'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$type_('password'),
+								_1: {ctor: '[]'}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$input,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('hotel'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$placeholder('Hotel Name'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$type_('text'),
+									_1: {ctor: '[]'}
+								}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$button,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('submit'),
+								_1: {ctor: '[]'}
+							},
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html$text('Submit'),
+								_1: {ctor: '[]'}
+							}),
+						_1: {ctor: '[]'}
+					}
+				}
+			}
+		});
+};
+var _user$project$Main$viewAdmin = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{ctor: '[]'},
+		{ctor: '[]'});
+};
+var _user$project$Main$RegisterData = F4(
+	function (a, b, c, d) {
+		return {name: a, hotelName: b, password: c, rPassword: d};
+	});
+var _user$project$Main$Model = F3(
+	function (a, b, c) {
+		return {route: a, credentialCheck: b, registerData: c};
+	});
+var _user$project$Main$InputRPassword = function (a) {
+	return {ctor: 'InputRPassword', _0: a};
+};
+var _user$project$Main$InputPassword = function (a) {
+	return {ctor: 'InputPassword', _0: a};
+};
+var _user$project$Main$InputHotelName = function (a) {
+	return {ctor: 'InputHotelName', _0: a};
+};
+var _user$project$Main$InputName = function (a) {
+	return {ctor: 'InputName', _0: a};
+};
+var _user$project$Main$SubmitRegisterRequest = {ctor: 'SubmitRegisterRequest'};
+var _user$project$Main$viewRegister = function (model) {
+	return A2(
+		_elm_lang$html$Html$div,
+		{
+			ctor: '::',
+			_0: _elm_lang$html$Html_Attributes$class('viewRegister'),
+			_1: {ctor: '[]'}
+		},
+		{
+			ctor: '::',
+			_0: A2(
+				_elm_lang$html$Html$input,
+				{
+					ctor: '::',
+					_0: _elm_lang$html$Html_Attributes$class('name'),
+					_1: {
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$placeholder('Name'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$type_('text'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$InputName),
+								_1: {ctor: '[]'}
+							}
+						}
+					}
+				},
+				{ctor: '[]'}),
+			_1: {
+				ctor: '::',
+				_0: A2(
+					_elm_lang$html$Html$input,
+					{
+						ctor: '::',
+						_0: _elm_lang$html$Html_Attributes$class('hotelName'),
+						_1: {
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$placeholder('Hotel Name'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$type_('text'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$InputHotelName),
+									_1: {ctor: '[]'}
+								}
+							}
+						}
+					},
+					{ctor: '[]'}),
+				_1: {
+					ctor: '::',
+					_0: A2(
+						_elm_lang$html$Html$input,
+						{
+							ctor: '::',
+							_0: _elm_lang$html$Html_Attributes$class('password'),
+							_1: {
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$placeholder('Password'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$type_('password'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$InputPassword),
+										_1: {ctor: '[]'}
+									}
+								}
+							}
+						},
+						{ctor: '[]'}),
+					_1: {
+						ctor: '::',
+						_0: A2(
+							_elm_lang$html$Html$input,
+							{
+								ctor: '::',
+								_0: _elm_lang$html$Html_Attributes$class('rPassword'),
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$placeholder('Repeat Password'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Attributes$type_('password'),
+										_1: {
+											ctor: '::',
+											_0: _elm_lang$html$Html_Events$onInput(_user$project$Main$InputRPassword),
+											_1: {ctor: '[]'}
+										}
+									}
+								}
+							},
+							{ctor: '[]'}),
+						_1: {
+							ctor: '::',
+							_0: A2(
+								_elm_lang$html$Html$button,
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html_Attributes$class('button'),
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$SubmitRegisterRequest),
+										_1: {ctor: '[]'}
+									}
+								},
+								{
+									ctor: '::',
+									_0: _elm_lang$html$Html$text('Submit'),
+									_1: {ctor: '[]'}
+								}),
+							_1: {ctor: '[]'}
+						}
+					}
+				}
+			}
+		});
+};
+var _user$project$Main$RegisterPage = {ctor: 'RegisterPage'};
+var _user$project$Main$LoginPage = {ctor: 'LoginPage'};
+var _user$project$Main$viewHome = function (model) {
 	return A2(
 		_elm_lang$html$Html$div,
 		{ctor: '[]'},
@@ -9795,7 +10142,11 @@ var _user$project$Main$homeView = function (model) {
 							{
 								ctor: '::',
 								_0: _elm_lang$html$Html_Attributes$class('login'),
-								_1: {ctor: '[]'}
+								_1: {
+									ctor: '::',
+									_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$LoginPage),
+									_1: {ctor: '[]'}
+								}
 							},
 							{
 								ctor: '::',
@@ -9809,7 +10160,11 @@ var _user$project$Main$homeView = function (model) {
 								{
 									ctor: '::',
 									_0: _elm_lang$html$Html_Attributes$class('register'),
-									_1: {ctor: '[]'}
+									_1: {
+										ctor: '::',
+										_0: _elm_lang$html$Html_Events$onClick(_user$project$Main$RegisterPage),
+										_1: {ctor: '[]'}
+									}
 								},
 								{
 									ctor: '::',
@@ -9827,25 +10182,11 @@ var _user$project$Main$view = function (model) {
 	var _p0 = model.route;
 	switch (_p0.ctor) {
 		case 'Home':
-			return _user$project$Main$homeView(model);
+			return _user$project$Main$viewHome(model);
 		case 'Register':
-			return A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Register'),
-					_1: {ctor: '[]'}
-				});
+			return _user$project$Main$viewRegister(model);
 		case 'Login':
-			return A2(
-				_elm_lang$html$Html$div,
-				{ctor: '[]'},
-				{
-					ctor: '::',
-					_0: _elm_lang$html$Html$text('Login'),
-					_1: {ctor: '[]'}
-				});
+			return _user$project$Main$viewLogin(model);
 		case 'Admin':
 			return A2(
 				_elm_lang$html$Html$div,
@@ -9893,8 +10234,20 @@ var _user$project$Main$view = function (model) {
 				});
 	}
 };
-var _user$project$Main$Model = function (a) {
-	return {route: a};
+var _user$project$Main$Route = function (a) {
+	return {ctor: 'Route', _0: a};
+};
+var _user$project$Main$PasswordTooShort = {ctor: 'PasswordTooShort'};
+var _user$project$Main$PasswordsDontMatch = {ctor: 'PasswordsDontMatch'};
+var _user$project$Main$checkRegisterData = function (registerData) {
+	var rPassword = registerData.rPassword;
+	var password = registerData.password;
+	var errorList = _elm_lang$core$Native_Utils.eq(password, rPassword) ? {ctor: '[]'} : {
+		ctor: '::',
+		_0: _user$project$Main$PasswordsDontMatch,
+		_1: {ctor: '[]'}
+	};
+	return errorList;
 };
 var _user$project$Main$RouteNotFound = {ctor: 'RouteNotFound'};
 var _user$project$Main$Reception = {ctor: 'Reception'};
@@ -9973,23 +10326,108 @@ var _user$project$Main$matchLocation = function (location) {
 var _user$project$Main$update = F2(
 	function (msg, model) {
 		var _p2 = msg;
-		var newRoute = _user$project$Main$matchLocation(_p2._0);
-		return {
-			ctor: '_Tuple2',
-			_0: _elm_lang$core$Native_Utils.update(
-				model,
-				{route: newRoute}),
-			_1: _elm_lang$core$Platform_Cmd$none
-		};
+		switch (_p2.ctor) {
+			case 'Route':
+				var newRoute = _user$project$Main$matchLocation(_p2._0);
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{route: newRoute}),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'LoginPage':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{route: _user$project$Main$Login}),
+					_1: _elm_lang$navigation$Navigation$newUrl('/#/login')
+				};
+			case 'RegisterPage':
+				return {
+					ctor: '_Tuple2',
+					_0: _elm_lang$core$Native_Utils.update(
+						model,
+						{route: _user$project$Main$Register}),
+					_1: _elm_lang$navigation$Navigation$newUrl('/#/register')
+				};
+			case 'InputName':
+				var oldInput = model.registerData;
+				var newInput = _elm_lang$core$Native_Utils.update(
+					oldInput,
+					{name: _p2._0});
+				return {
+					ctor: '_Tuple2',
+					_0: A2(
+						_elm_lang$core$Debug$log,
+						'sup',
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{registerData: newInput})),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'InputHotelName':
+				var oldInput = model.registerData;
+				var newInput = _elm_lang$core$Native_Utils.update(
+					oldInput,
+					{hotelName: _p2._0});
+				return {
+					ctor: '_Tuple2',
+					_0: A2(
+						_elm_lang$core$Debug$log,
+						'sup',
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{registerData: newInput})),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'InputPassword':
+				var oldInput = model.registerData;
+				var newInput = _elm_lang$core$Native_Utils.update(
+					oldInput,
+					{password: _p2._0});
+				return {
+					ctor: '_Tuple2',
+					_0: A2(
+						_elm_lang$core$Debug$log,
+						'sup',
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{registerData: newInput})),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			case 'InputRPassword':
+				var oldInput = model.registerData;
+				var newInput = _elm_lang$core$Native_Utils.update(
+					oldInput,
+					{rPassword: _p2._0});
+				return {
+					ctor: '_Tuple2',
+					_0: A2(
+						_elm_lang$core$Debug$log,
+						'sup',
+						_elm_lang$core$Native_Utils.update(
+							model,
+							{registerData: newInput})),
+					_1: _elm_lang$core$Platform_Cmd$none
+				};
+			default:
+				var checkRequestData = _user$project$Main$checkRegisterData(model.registerData);
+				return _elm_lang$core$Native_Utils.eq(
+					checkRequestData,
+					{ctor: '[]'}) ? {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none} : {ctor: '_Tuple2', _0: model, _1: _elm_lang$core$Platform_Cmd$none};
+		}
 	});
-var _user$project$Main$Route = function (a) {
-	return {ctor: 'Route', _0: a};
-};
 var _user$project$Main$init = function (location) {
 	return A2(
 		_user$project$Main$update,
 		_user$project$Main$Route(location),
-		_user$project$Main$Model(_user$project$Main$Home));
+		A3(
+			_user$project$Main$Model,
+			_user$project$Main$Home,
+			{ctor: '[]'},
+			A4(_user$project$Main$RegisterData, '', '', '', '')));
 };
 var _user$project$Main$main = A2(
 	_elm_lang$navigation$Navigation$program,

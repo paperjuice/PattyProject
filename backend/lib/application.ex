@@ -10,7 +10,14 @@ defmodule Backend.Application do
     WebsocketServer.Init.init()
     RoomCleaner.genserver_init()
 
+    children = [
+      { Plug.Adapters.Cowboy2,
+        scheme: :http,
+        plug: Backend.Plug.Adapter,
+        options: [ port: 8999 ]
+      }
+    ]
 
-    {:ok, self()}
+    Supervisor.start_link(children, strategy: :one_for_one)
   end
 end

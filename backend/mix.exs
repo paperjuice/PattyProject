@@ -14,7 +14,7 @@ defmodule Backend.MixProject do
   # Run "mix help compile.app" to learn about applications.
   def application do
     [
-      extra_applications: [:cowboy, :ranch, :logger],
+      extra_applications: [:cowboy, :ranch, :logger, :plug],
       mod: {Backend.Application, []}
     ]
   end
@@ -23,7 +23,8 @@ defmodule Backend.MixProject do
   defp deps do
     [
       {:cowboy, "2.3.0"},
-      {:poison, ">=0.0.0"}
+      {:poison, ">=0.0.0"},
+      {:plug, "1.5.1"}
     ]
   end
 end
